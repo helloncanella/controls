@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  #controls {
+    $width: 0.8*100vw;
+    $ratio: 36/636;
+    width: $width;
+    height: $width*$ratio;
+    margin: auto;
+    #progress {}
+    #settings {
+      border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      .left,
+      .right {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+.fa{
+  margin:15px;
+  font-size:2em !important;
+}

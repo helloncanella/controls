@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex; }
+  body #controls {
+    width: 80vw;
+    height: 4.5283018868vw;
+    margin: auto; }
+    body #controls #settings {
+      border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      align-content: center; }
+      body #controls #settings .left,
+      body #controls #settings .right {
+        display: flex;
+        justify-content: space-between; }
+
+.fa {
+  margin: 15px;
+  font-size: 2em !important; }
