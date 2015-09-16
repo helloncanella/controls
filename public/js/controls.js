@@ -1,7 +1,16 @@
 $(function() {
 
+  //click video/pause button;
+  var video = $('video')[0];
+
   $("#progress").slider({
-    range: "min"
+    range: "min",
+    slide: function(event, ui){
+      //update movie
+      var duration = video.duration;
+      var sliderPercentage = ui.value/100;
+      video.currentTime = sliderPercentage * duration;
+    }
   });
 
   $("#volume-control .slider").slider({
@@ -20,11 +29,8 @@ $(function() {
         selector.removeClass('fa-volume-off')
           .addClass('fa-volume-up');
       }
-    }
+    },
   });
-
-  //click video/pause button;
-  var video = $('video')[0];
 
   $('a#playPause').click(function(e) {
     if (video.paused) {
@@ -37,6 +43,29 @@ $(function() {
       video.pause();
     }
   });
+
+
+  //update clock
+
+  video.onloadstart = function(){
+    video.ontimeupdate = function(){
+    var currentTime = video.currentTime;
+
+      if (!duration){
+        var duration = video.duration;
+        var durationFormatted = getFormatedTime(duration);
+        $("#time .duration").text(" / "+durationFormatted);
+      }
+
+      //update clock
+      updateClock(currentTime);
+      //update slider
+      var percentage = 100 * currentTime/duration;
+      $( "#progress" ).slider( "value", percentage );
+    }
+  }
+
+
 
   //volume
   $("#volume").click(function(event) {
