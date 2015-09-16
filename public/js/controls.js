@@ -104,7 +104,10 @@ $(function() {
     click: function(event) {
       $("#volume-control").removeClass('show-flex')
     },
-    mousemove: function(event) {
+
+    showcontrols: function(event) {
+      lastMovement = Date.now();
+
       $('body').css({
         "cursor": "default"
       });
@@ -113,44 +116,49 @@ $(function() {
       })
 
       setTimeout(function() {
+        var currentMovement = Date.now()
+        var duration = currentMovement - lastMovement
 
-        //mouse in the same position makes the cursor and the controls disappear
-        var oldPosition = {
-          x: event.clientX,
-          y: event.clientY
+        if (duration > 2000) {
+          $(this).trigger("removecontrols");
         }
 
-        var newPosition = {
-          x: event.clientX,
-          y: event.clientY
-        };
+      }, 2500)
+    },
 
-        var sameX = oldPosition.x == newPosition.x;
-        var sameY = oldPosition.x == newPosition.x;
+    removecontrols: function(event) {
+      $('body').css({
+        "cursor": "none"
+      });
+      $('#controls').css({
+        "visibility": "hidden"
+      })
+    },
 
-        console.log(true);
-        if (sameX && sameY) {
-          $('body').css({
-            "cursor": "none"
-          });
-          $('#controls').css({
-            "visibility": "hidden"
-          })
-        }
-      }, 2000)
-    }
-  });
+    mousemove: function(event) {
+      $(this).trigger('showcontrols');
+    },
 
+    mousedown: function(event) {
+      console.log("mousedown");
+      $(this).trigger('showcontrols');
+    },
 
-  $('#fullScreen').click(function(event) {
-    if (!window.screenTop && !window.screenY) {
-      $(this).find('i')
-        .removeClass('fa-compress').addClass('fa-expand');
-      document.webkitExitFullscreen()
-    } else {
-      $("body")[0].webkitRequestFullscreen();
-      $(this).find('i').removeClass('fa-expand').addClass('fa-compress');
+    mousestop: function(event) {
+      $(this).trigger("removecontrols")
     }
   })
-
 });
+
+
+
+$('#fullScreen').click(function(event) {
+  if (!window.screenTop && !window.screenY) {
+    $(this).find('i')
+      .removeClass('fa-compress').addClass('fa-expand');
+    document.webkitExitFullscreen()
+  } else {
+    $("body")[0].webkitRequestFullscreen();
+    $(this).find('i').removeClass('fa-expand').addClass('fa-compress');
+  }
+})

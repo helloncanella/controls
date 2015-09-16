@@ -4,7 +4,8 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
-  cursor: none; }
+  cursor: none;
+  overflow: hidden; }
   body video {
     object-fit: cover;
     width: 100%;
