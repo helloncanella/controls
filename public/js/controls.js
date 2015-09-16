@@ -72,7 +72,6 @@ $(function() {
     if (video.paused) {
       video.play();
     } else {
-
       video.pause();
     }
   });
@@ -99,32 +98,59 @@ $(function() {
     })
   })
 
-  $(window).click(function(event) {
-    $("#volume-control").removeClass('show-flex')
-  })
+
+  //window's events
+  $(window).on({
+    click: function(event) {
+      $("#volume-control").removeClass('show-flex')
+    },
+    mousemove: function(event) {
+      $('body').css({
+        "cursor": "default"
+      });
+      $('#controls').css({
+        "visibility": "visible"
+      })
+
+      setTimeout(function() {
+
+        //mouse in the same position makes the cursor and the controls disappear
+        var oldPosition = {
+          x: event.clientX,
+          y: event.clientY
+        }
+
+        var newPosition = {
+          x: event.clientX,
+          y: event.clientY
+        };
+
+        var sameX = oldPosition.x == newPosition.x;
+        var sameY = oldPosition.x == newPosition.x;
+
+        console.log(true);
+        if (sameX && sameY) {
+          $('body').css({
+            "cursor": "none"
+          });
+          $('#controls').css({
+            "visibility": "hidden"
+          })
+        }
+      }, 2000)
+    }
+  });
+
 
   $('#fullScreen').click(function(event) {
     if (!window.screenTop && !window.screenY) {
       $(this).find('i')
         .removeClass('fa-compress').addClass('fa-expand');
-      $("body")[0].exitFullscreen();
+      document.webkitExitFullscreen()
     } else {
-      console.log($("body")[0].fullScreen);
       $("body")[0].webkitRequestFullscreen();
       $(this).find('i').removeClass('fa-expand').addClass('fa-compress');
     }
   })
-
-  $(document).on('webkitfullscreenchange', function(e) {
-
-  });
-
-
-
-
-
-
-
-
 
 });
