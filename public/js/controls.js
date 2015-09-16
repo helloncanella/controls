@@ -3,12 +3,48 @@ $(function() {
   //click video/pause button;
   var video = $('video')[0];
 
+  //update clock
+  video.onloadstart = function() {
+
+    //change icon on pause or play
+    this.onpause = function() {
+      $('#playPause i').removeClass('fa-pause')
+        .addClass('fa-play');
+    }
+
+    this.onplay = function() {
+      $('#playPause i').removeClass('fa-play')
+        .addClass('fa-pause');
+
+    }
+
+    this.ontimeupdate = function() {
+      var currentTime = video.currentTime;
+
+      if (!duration) {
+        var duration = video.duration;
+        var durationFormatted = getFormatedTime(duration);
+        $("#time .duration").text(" / " + durationFormatted);
+      }
+
+      //update clock
+      updateClock(currentTime);
+
+      //update slider
+      var percentage = 100 * currentTime / duration;
+      $("#progress").slider("value", percentage);
+
+    }
+
+  }
+
+
   $("#progress").slider({
     range: "min",
-    slide: function(event, ui){
+    slide: function(event, ui) {
       //update movie
       var duration = video.duration;
-      var sliderPercentage = ui.value/100;
+      var sliderPercentage = ui.value / 100;
       video.currentTime = sliderPercentage * duration;
     }
   });
@@ -32,40 +68,14 @@ $(function() {
     },
   });
 
-  $('a#playPause').click(function(e) {
+  $('#playPause').click(function(e) {
     if (video.paused) {
-      $(this).children('i').removeClass('fa-play');
-      $(this).children('i').addClass('fa-pause');
       video.play();
     } else {
-      $(this).children('i').removeClass('fa-pause');
-      $(this).children('i').addClass('fa-play');
+
       video.pause();
     }
   });
-
-
-  //update clock
-
-  video.onloadstart = function(){
-    video.ontimeupdate = function(){
-    var currentTime = video.currentTime;
-
-      if (!duration){
-        var duration = video.duration;
-        var durationFormatted = getFormatedTime(duration);
-        $("#time .duration").text(" / "+durationFormatted);
-      }
-
-      //update clock
-      updateClock(currentTime);
-      //update slider
-      var percentage = 100 * currentTime/duration;
-      $( "#progress" ).slider( "value", percentage );
-    }
-  }
-
-
 
   //volume
   $("#volume").click(function(event) {
@@ -92,6 +102,26 @@ $(function() {
   $(window).click(function(event) {
     $("#volume-control").removeClass('show-flex')
   })
+
+  $('#fullScreen').click(function(event) {
+    if (!window.screenTop && !window.screenY) {
+      $(this).find('i')
+        .removeClass('fa-compress').addClass('fa-expand');
+      $("body")[0].exitFullscreen();
+    } else {
+      console.log($("body")[0].fullScreen);
+      $("body")[0].webkitRequestFullscreen();
+      $(this).find('i').removeClass('fa-expand').addClass('fa-compress');
+    }
+  })
+
+  $(document).on('webkitfullscreenchange', function(e) {
+
+  });
+
+
+
+
 
 
 

@@ -1,29 +1,34 @@
-body #controls {
-  width: 80vw;
-  height: 4.5283018868vw;
-  margin: 50vh auto;
-  position: relative; }
-  body #controls #progress .ui-slider-range {
-    background: #ef2929; }
-  body #controls #progress .ui-slider-handle {
-    height: 0.8em;
-    width: 0.8em;
-    top: -0.05em;
-    border-radius: 31px; }
-  body #controls #settings {
-    display: flex;
-    justify-content: space-between;
-    align-content: center; }
-    body #controls #settings .left,
-    body #controls #settings .right {
-      display: flex; }
-    body #controls #settings #volume {
-      margin: 0;
-      padding: 0;
-      position: relative;
+body {
+  color: royalblue; }
+  body #controls {
+    width: 80vw;
+    height: 4.5283018868vw;
+    margin: 50vh auto;
+    position: relative; }
+    body #controls #progress .ui-slider-range {
+      background: #ef2929; }
+    body #controls #progress .ui-slider-handle {
+      height: 0.8em;
+      width: 0.8em;
+      top: -0.05em;
+      border-radius: 31px; }
+    body #controls #settings {
       display: flex;
-      align-content: center;
-      flex-direction: column; }
+      justify-content: space-between;
+      align-content: center; }
+      body #controls #settings .left,
+      body #controls #settings .right {
+        display: flex; }
+      body #controls #settings #volume {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: flex;
+        align-content: center;
+        flex-direction: column; }
+  body:fullscreen {
+    background: transparent;
+    color: white !important; }
 
 .show-flex {
   display: flex !important; }

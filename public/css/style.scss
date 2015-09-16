@@ -1,4 +1,5 @@
 body {
+  color:royalblue;
   #controls {
     $width: 0.8*100vw;
     $ratio: 36/636;
@@ -36,6 +37,11 @@ body {
       }
     }
   }
+  &:fullscreen{
+    background: transparent;
+    color:white !important;
+  }
+
 }
 .show-flex {
   display: flex !important;
@@ -58,4 +64,5 @@ body {
 .fa {
   margin: 15px;
   font-size: 2em !important;
+
 }
