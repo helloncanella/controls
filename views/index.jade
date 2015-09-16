@@ -1,14 +1,14 @@
 extends layout
 
 block content
+	video(src="/videos/The.Big.Bang.Theory.S08E02.HDTV.x264-LOL.mp4" autoplay)
 	#controls
-		#progress
-
+		#progress			
 		#settings
 			.left
 				a#playPause
 					i.fa.fa-pause
-				a#sound
+				a#volume
 					i.fa.fa-volume-up
 				#time
 					h4 2:50 / 1:45:35  
@@ -17,3 +17,5 @@ block content
 					i.fa.fa-commenting-o
 				a#fullScreen
 					i.fa.fa-expand
+		#volume-control
+			.slider

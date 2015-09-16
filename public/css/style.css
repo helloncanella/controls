@@ -1,20 +1,45 @@
-body {
-  margin: 0;
-  padding: 0;
-  display: flex; }
-  body #controls {
-    width: 80vw;
-    height: 4.5283018868vw;
-    margin: auto; }
-    body #controls #settings {
-      border: 1px solid black;
+body #controls {
+  width: 80vw;
+  height: 4.5283018868vw;
+  margin: 50vh auto;
+  position: relative; }
+  body #controls #progress .ui-slider-range {
+    background: #ef2929; }
+  body #controls #progress .ui-slider-handle {
+    height: 0.8em;
+    width: 0.8em;
+    top: -0.05em;
+    border-radius: 31px; }
+  body #controls #settings {
+    display: flex;
+    justify-content: space-between;
+    align-content: center; }
+    body #controls #settings .left,
+    body #controls #settings .right {
+      display: flex; }
+    body #controls #settings #volume {
+      margin: 0;
+      padding: 0;
+      position: relative;
       display: flex;
-      justify-content: space-between;
-      align-content: center; }
-      body #controls #settings .left,
-      body #controls #settings .right {
-        display: flex;
-        justify-content: space-between; }
+      align-content: center;
+      flex-direction: column; }
+
+.show-flex {
+  display: flex !important; }
+
+#volume-control {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  z-index: 5; }
+  #volume-control .ui-slider-handle {
+    height: 0.8em;
+    width: 0.8em;
+    left: -0.05em;
+    border-radius: 31px; }
+  #volume-control .ui-slider-range {
+    background: #edc832; }
 
 .fa {
   margin: 15px;
