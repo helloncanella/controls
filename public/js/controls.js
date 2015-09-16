@@ -146,19 +146,55 @@ $(function() {
 
     mousestop: function(event) {
       $(this).trigger("removecontrols")
+    },
+
+    keydown: function(event) {
+      var pressedKey = event.keyCode;
+      var f11 = 122,
+          esc = 27;
+
+      switch (pressedKey) {
+        case f11:
+          event.preventDefault();
+          console.log("onFullscreen",onFullscreen);
+          if (onFullscreen) {
+            $(this).trigger("disablefullscreen");
+          } else {
+            $(this).trigger("enablefullscreen");
+          }
+          break;
+        case esc:
+          event.preventDefault();
+          console.log("escape");
+          $(this).trigger("disablefullscreen")
+          break;
+      }
+    },
+
+    enablefullscreen: function(event) {
+      onFullscreen = true;
+      $('body')[0].webkitRequestFullscreen();
+      $('#fullScreen i').removeClass('fa-expand')
+        .addClass('fa-compress');
+    },
+
+    disablefullscreen: function(event) {
+      onFullscreen = false;
+      document.webkitExitFullscreen();
+      $('#fullScreen i').removeClass('fa-compress')
+        .addClass('fa-expand');
     }
+
   })
 });
 
-
-
-$('#fullScreen').click(function(event) {
-  if (!window.screenTop && !window.screenY) {
-    $(this).find('i')
-      .removeClass('fa-compress').addClass('fa-expand');
-    document.webkitExitFullscreen()
-  } else {
-    $("body")[0].webkitRequestFullscreen();
-    $(this).find('i').removeClass('fa-expand').addClass('fa-compress');
-  }
+var onFullscreen = false;
+$('#fullScreen').on({
+  click: function(event) {
+    if (onFullscreen) {
+      $(window).trigger("disablefullscreen");
+    } else {
+      $(window).trigger("enablefullscreen");
+    }
+  },
 })
